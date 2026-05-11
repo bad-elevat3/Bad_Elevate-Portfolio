@@ -1,4 +1,4 @@
-  <style>
+
     :root {
       --bg: #080810;
       --bg2: #0e0e1a;
@@ -825,4 +825,4 @@
       .skills-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 20px; text-align: center; }
     }
-  </style>
+  
