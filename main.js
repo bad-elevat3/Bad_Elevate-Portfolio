@@ -1,4 +1,3 @@
-
 // ── PARTICLE SYSTEM ──
 (function() {
   const canvas = document.getElementById('particles');
