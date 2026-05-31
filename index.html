@@ -22,9 +22,34 @@
 </div>
 
 <div class="cv-tab cv-view">
-  <a href="Junior_Ncube_Remote_CV-2.docx" target="_blank" class="cv-link">
+  <a href="#" id="cv-view-btn" class="cv-link">
     <span class="cv-text">View CV</span>
   </a>
+</div>
+
+<!-- CV Slide-In Panel -->
+<div id="cv-overlay" class="cv-overlay"></div>
+<div id="cv-panel" class="cv-panel">
+  <div class="cv-panel-header">
+    <div class="cv-panel-title-wrap">
+      <span class="cv-panel-tag">// Curriculum Vitae</span>
+      <h3 class="cv-panel-title">Junior L Ncube</h3>
+    </div>
+    <div class="cv-panel-actions">
+      <a href="Junior_Ncube_Remote_CV-2.docx" download class="cv-panel-download" title="Download CV">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </a>
+      <button id="cv-close-btn" class="cv-panel-close" title="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="cv-panel-body">
+    <iframe id="cv-iframe" class="cv-panel-iframe" title="CV Preview" loading="lazy"></iframe>
+    <div class="cv-panel-fallback">
+      <p>Can't see the preview? <a href="Junior_Ncube_Remote_CV-2.docx" download>Download the CV</a> instead.</p>
+    </div>
+  </div>
 </div>
 
 <!-- Navigation -->

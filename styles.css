@@ -68,6 +68,199 @@ body {
   color: var(--accent2);
 }
 
+/* ── CV SLIDE-IN PANEL ── */
+.cv-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(6, 6, 14, 0);
+  backdrop-filter: blur(0px);
+  pointer-events: none;
+  transition: background 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              backdrop-filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cv-overlay.active {
+  background: rgba(6, 6, 14, 0.6);
+  backdrop-filter: blur(12px);
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.cv-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: min(560px, 90vw);
+  height: 100vh;
+  z-index: 1000;
+  background: linear-gradient(165deg, rgba(16, 16, 34, 0.97), rgba(10, 10, 22, 0.99));
+  border-right: 1px solid var(--border-bright);
+  box-shadow: 20px 0 80px rgba(0, 0, 0, 0.6),
+              4px 0 30px rgba(124, 109, 250, 0.08);
+  transform: translateX(-105%);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.cv-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--gold));
+  opacity: 0;
+  transition: opacity 0.4s ease 0.3s;
+}
+.cv-panel.active {
+  transform: translateX(0);
+}
+.cv-panel.active::before {
+  opacity: 1;
+}
+
+.cv-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.4s ease 0.25s, transform 0.4s ease 0.25s;
+}
+.cv-panel.active .cv-panel-header {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.cv-panel-tag {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.cv-panel-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.cv-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cv-panel-download,
+.cv-panel-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(124, 109, 250, 0.06);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.cv-panel-download:hover {
+  background: rgba(124, 109, 250, 0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 20px rgba(124, 109, 250, 0.15);
+}
+.cv-panel-close:hover {
+  background: rgba(255, 80, 100, 0.1);
+  border-color: rgba(255, 80, 100, 0.4);
+  color: #ff5064;
+  box-shadow: 0 0 20px rgba(255, 80, 100, 0.1);
+}
+
+.cv-panel-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s;
+}
+.cv-panel.active .cv-panel-body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cv-panel-iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: var(--bg3);
+}
+
+.cv-panel-fallback {
+  padding: 16px 32px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.cv-panel-fallback p {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.5px;
+}
+.cv-panel-fallback a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(124, 109, 250, 0.3);
+  transition: color 0.3s, border-color 0.3s;
+}
+.cv-panel-fallback a:hover {
+  color: var(--accent2);
+  border-color: var(--accent2);
+}
+
+/* Body lock when CV panel is open */
+body.cv-open {
+  overflow: hidden;
+}
+
+/* Hide the View CV tab when panel is open */
+body.cv-open .cv-view {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(-20px);
+}
+.cv-view {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .cv-panel {
+    width: 100vw;
+    border-right: none;
+  }
+  .cv-panel-header {
+    padding: 20px 20px;
+  }
+  .cv-panel-fallback {
+    padding: 14px 20px;
+  }
+  .cv-tab {
+    display: none;
+  }
+}
+
 /* ── NAVBAR ── */
 nav {
   position: fixed;

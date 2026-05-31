@@ -138,3 +138,64 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
   });
 });
+
+// ── CV SLIDE-IN PANEL ──
+(function() {
+  const viewBtn = document.getElementById('cv-view-btn');
+  const closeBtn = document.getElementById('cv-close-btn');
+  const overlay = document.getElementById('cv-overlay');
+  const panel = document.getElementById('cv-panel');
+  const iframe = document.getElementById('cv-iframe');
+  let loaded = false;
+
+  // Build the viewer URL — uses Google Docs Viewer for .docx rendering
+  // When hosted (e.g. GitHub Pages), replace with your actual hosted URL
+  function getCvViewerUrl() {
+    const cvFileName = 'Junior_Ncube_Remote_CV-2.docx';
+    // If hosted online, use Google Docs Viewer
+    if (window.location.protocol === 'https:' || window.location.protocol === 'http:') {
+      const baseUrl = window.location.href.replace(/\/[^\/]*$/, '/');
+      return 'https://docs.google.com/gview?url=' + encodeURIComponent(baseUrl + cvFileName) + '&embedded=true';
+    }
+    // Fallback for local file:// protocol — just point to the file directly
+    return cvFileName;
+  }
+
+  function openPanel() {
+    if (!loaded) {
+      iframe.src = getCvViewerUrl();
+      loaded = true;
+    }
+    panel.classList.add('active');
+    overlay.classList.add('active');
+    document.body.classList.add('cv-open');
+  }
+
+  function closePanel() {
+    panel.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.classList.remove('cv-open');
+  }
+
+  if (viewBtn) {
+    viewBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openPanel();
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closePanel);
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', closePanel);
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && panel.classList.contains('active')) {
+      closePanel();
+    }
+  });
+})();
